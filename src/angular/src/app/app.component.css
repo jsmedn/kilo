@@ -1,0 +1,74 @@
+
+table.header, table.body {
+  width: 80%;
+  border-spacing: 0px;
+}
+
+table.header td {
+  padding: 0px;
+}
+
+table.body {
+  border-top: 1px solid #1b1c1b;
+  border-left: 2px solid #1b1c1b;
+  border-bottom: 2px solid #1b1c1b;
+  border-right: 2px solid #1b1c1b;
+}
+
+
+td.bodycell {
+  background-color: #FFFFFF;
+  padding: 10px;
+}
+
+
+td.recipeHeader {
+  font-family: Verdana, Sans Serif;
+  font-size: 14pt;
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+
+  background: #999; /* for non-css3 browsers */
+
+/* 00277e / 7fa6ff */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdcd5', endColorstr='#d4cfc7'); /* for IE */
+  background: -webkit-gradient(linear, left top, left bottom, from(#dfdcd5), to(#d4cfc7)); /* for webkit browsers */
+  background: -moz-linear-gradient(top,  #dfdcd5,  #d4cfc7); /* for firefox 3.6+ */ 
+  background-image: linear-gradient(#dfdcd5,  #d4cfc7);
+
+  padding: 4px;
+
+}
+
+td.recipeCell {
+  font-family: Verdana, Sans Serif;
+  font-size: 12pt;
+  color: #000000;
+  text-align: left;
+
+  background: #FFFFFF;
+}
+
+a {
+  font-family: Verdana, Sans Serif;
+  font-size: 12pt;
+  color: #000000;
+}
+
+td.recipeTitle {
+  font-family: Verdana, Sans Serif;
+  font-size: 12pt;
+  background-color: #FFFFFF;
+  padding: 4px;
+  cursor: pointer;
+}
+
+td.footer {
+  font-family: Verdana, Sans Serif;
+  font-size: 10pt;
+  background-color: #cccccc;
+  padding: 4px;
+  text-align: center;
+}

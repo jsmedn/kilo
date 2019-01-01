@@ -1,0 +1,14 @@
+Font: Square721 BdEc BT Expanded
+Site: 18px
+Hinting: on
+Force uto-hinter: off
+Antialiasing: on
+Letterspacing: 1.0
+
+Font color: #FFFFFF;
+
+Create transparent layer for shadow. Select text layer, check Lock transparency. Right click layer, click Alpha to selection.
+Choose #000000 as foreground color. Select pencil tool. Select transparent layer. Click Edit -> Stroke Selection.
+Stroke line: 2px, solid.
+Select none. Click Filters -> Blur -> Gaussian blur. Blur radius: 2px.
+Merge the two layers and save as png.
