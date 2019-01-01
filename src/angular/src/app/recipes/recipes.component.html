@@ -1,0 +1,63 @@
+
+    <div align="center">
+      <table class="header" cellspacing="0">
+        <tr>
+          <td style="background-color: red; width: 10px; height: 36px; background: url('assets/gfx/topleft.png');"><img src="assets/gfx/transparent.png" height="1" width="1" /></td>
+        
+          <td style="background: url('assets/gfx/topcenter.png'); color: #FFFFFF;">
+            <table cellpadding="0" cellspacing="0">
+              <tr>
+                <td><img src="assets/gfx/logo.png" /></td>
+                <td valign="bottom"><img src="assets/gfx/jsmed.png" /></td>
+              </tr>
+            </table>
+          </td>
+
+          <td style="background: url('assets/gfx/topcenter.png'); width: 1px;"><img src="assets/gfx/transparent.png" width="1" height="26" style="background-color: #555555;" /></td>
+
+         <td style="background: url('assets/gfx/topcenter.png'); color: #FFFFFF; width: 100px;">
+           <table cellpadding="0" cellspacing="0" align="right">
+             <tr>
+               <td><img src="assets/gfx/login.png" style="cursor: pointer;" onclick="alert('login magic here');this.blur();" /></td>
+             </tr>
+           </table>
+         </td>
+        
+          <td style="width: 10px; background: url('assets/gfx/topright.png');"><img src="assets/gfx/transparent.png" height="1" width="1" /></td>
+        
+        </tr>
+      </table>
+
+
+      <table class="body" cellspacing="0">
+        <tr>
+          <td class="bodycell">
+
+            <table width="100%" cellspacing="1" cellpadding="4" style="background: #cccccc;">
+              <tr>
+                <td colspan="3" class="recipeHeader" style="text-align:center;">Recipes</td>
+              </tr>
+              
+            
+
+              <tr>
+                <td class="recipeHeader">Title</td>
+                <td class="recipeHeader">
+                  <select name="tagid" onchange="location='index.php?tagid=' + this.options[this.selectedIndex].value">
+                    <option value="-1">Select tag...</option>
+<option value="6">Boller</option><option value="5">Dessert</option><option value="7">Gris</option><option value="1">Kage</option><option value="4">Oksekød</option><option value="2">Sukkerfri</option><option value="3">Tilbehør</option>                  
+                  </select>
+                </td>
+                <td class="recipeHeader">Author</td>
+              </tr>
+	    
+	      <tr *ngFor="let recipe of recipes">
+		<td class="recipeCell" style="cursor: pointer;" (click)="goToRecipe(recipe.id)">{{recipe.title}}</td>
+		<td class="recipeCell">{{recipe.tagsFlat}}</td>
+		<td class="recipeCell">{{recipe.author.username}}</td>
+	      </tr>
+	    </table>
+          </td>
+	</tr>
+      </table>
+    </div>

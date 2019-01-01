@@ -1,0 +1,39 @@
+
+    <div align="center">
+      <table class="header" cellspacing="0">
+        <tr>
+          <td style="background-color: red; width: 10px; height: 36px; background: url('assets/gfx/topleft.png');"><img src="assets/gfx/transparent.png" height="1" width="1" /></td>
+        
+          <td style="background: url('assets/gfx/topcenter.png'); color: #FFFFFF;">
+            <table cellpadding="0" cellspacing="0">
+              <tr>
+                <td><img src="assets/gfx/logo.png" /></td>
+                <td valign="bottom"><img src="assets/gfx/jsmed.png" /></td>
+              </tr>
+            </table>
+          </td>
+
+          <td style="background: url('assets/gfx/topcenter.png'); width: 1px;"><img src="assets/gfx/transparent.png" width="1" height="26" style="background-color: #555555;" /></td>
+
+         <td style="background: url('assets/gfx/topcenter.png'); color: #FFFFFF; width: 100px;">
+           <table cellpadding="0" cellspacing="0" align="right">
+             <tr>
+               <td><img src="assets/gfx/back.png" style="cursor: pointer;" (click)="goBack();" /></td>
+             </tr>
+           </table>
+         </td>
+        
+          <td style="width: 10px; background: url('assets/gfx/topright.png');"><img src="assets/gfx/transparent.png" height="1" width="1" /></td>
+        
+        </tr>
+      </table>
+
+
+      <table class="body" cellspacing="0">
+        <tr>
+          <td class="bodycell">
+{{id}}
+          </td>
+	</tr>
+      </table>
+    </div>
