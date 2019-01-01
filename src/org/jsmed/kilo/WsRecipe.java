@@ -18,6 +18,7 @@ public class WsRecipe implements Serializable {
 	private Date modified;
 	private WsUser author;
 	private List<WsTag> tags = new ArrayList<>();
+	private String tagsFlat;
 	
 	public WsRecipe() {
 	}
@@ -33,6 +34,13 @@ public class WsRecipe implements Serializable {
 		this.author = new WsUser(recipe.getUser());
 		
 		for ( Tag tag : recipe.getTags() ) {
+          if ( this.tagsFlat == null ) {
+            this.tagsFlat = "";
+          } else {
+            this.tagsFlat += ", ";
+          }
+          this.tagsFlat += tag.getTitle();
+        	  
 		  this.tags.add(new WsTag(tag));
 		}
 		
