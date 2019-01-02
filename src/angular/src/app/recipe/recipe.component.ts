@@ -20,7 +20,7 @@ export class RecipeComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.id = params['id'];
       this.getRecipe(this.id);
-    }
+    });
 
   }
 
@@ -41,5 +41,10 @@ export class RecipeComponent implements OnInit {
     });
     return promise;
   }
+
+      showThumbnail(id: number) {
+          let img = <HTMLImageElement>document.getElementById("thumbnail");
+	  img.src="http://localhost:8080/kilo/image?id=" + id;
+      }
 
 }

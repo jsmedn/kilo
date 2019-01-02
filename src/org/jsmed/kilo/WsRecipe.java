@@ -19,6 +19,7 @@ public class WsRecipe implements Serializable {
 	private WsUser author;
 	private List<WsTag> tags = new ArrayList<>();
 	private String tagsFlat;
+	private List<Integer> imageids = new ArrayList<>();
 	
 	public WsRecipe() {
 	}
@@ -101,6 +102,14 @@ public class WsRecipe implements Serializable {
 
   public void setTags(List<WsTag> tags) {
     this.tags = tags;
+  }
+
+  public List<Integer> getImageids() {
+    return imageids;
+  }
+
+  public void setImageids(List<Integer> imageids) {
+    this.imageids = imageids;
   }
 	
 	

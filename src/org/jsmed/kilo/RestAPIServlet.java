@@ -34,7 +34,8 @@ public class RestAPIServlet {
            "SELECT r FROM Recipe r ORDER BY r.title").getResultList();
        
        for ( Recipe model : models ) {
-         recipes.add(new WsRecipe(model));
+         WsRecipe recipe = new WsRecipe(model);
+         recipes.add(recipe);
        }
        
      } finally {
@@ -93,6 +94,14 @@ public class RestAPIServlet {
       
        if ( model != null ) {
          recipe = new WsRecipe(model);
+
+         
+         List<Integer> imageids = em.createQuery(
+             "SELECT ri.id FROM RecipeImage ri INNER JOIN ri.recipe AS r WHERE r.id = :id")
+             .setParameter("id", model.getId())
+             .getResultList();
+
+         recipe.getImageids().addAll(imageids);
        }
      } finally {
        try {

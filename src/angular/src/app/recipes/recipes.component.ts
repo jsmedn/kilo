@@ -55,6 +55,7 @@ export class Recipe {
   author:Author=null;
   tags:Tag=null;
   tagsFlat:string=null;
+  imageids:number[] = [];
 }
 
 export class Author {

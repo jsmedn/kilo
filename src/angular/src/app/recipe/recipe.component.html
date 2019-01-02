@@ -42,8 +42,23 @@
 <tr>
   <td class="recipeTitle">Ingredients</td>
   <td rowspan="3" width="350">
-    images
-  
+
+
+   <table width="100%" *ngIf="recipe.imageids">
+      <tr>
+        <td align="center">
+	  <img src="http://localhost:8080/kilo/image?id={{recipe.imageids[0]}}" id="thumbnail"/>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+	  <div *ngFor="let imageid of recipe.imageids" style="width:64px; margin: 2px; cursor:pointer; position: relative; float: left">
+	    <img src="http://localhost:8080/kilo/image?id={{imageid}}" width="64" (click)="showThumbnail(imageid)"/>
+	  </div>
+        </td>
+      
+      </tr>
+    </table>  
   </td>
 </tr>
 
