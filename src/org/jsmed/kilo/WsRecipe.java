@@ -24,23 +24,26 @@ public class WsRecipe implements Serializable {
 	public WsRecipe() {
 	}
 	
-	public WsRecipe(Recipe recipe) {
+	public WsRecipe(Recipe recipe, boolean deep) {
 		this.id = recipe.getId();
 		this.title = recipe.getTitle();
-		this.ingredients = recipe.getIngredients();
-		this.preparation = recipe.getPreparation();
-		this.comment = recipe.getComment();
-		this.created = recipe.getCreated();
-		this.modified = recipe.getModified();
+		if ( deep ) {
+ 		  this.ingredients = recipe.getIngredients();
+		  this.preparation = recipe.getPreparation();
+	  	this.comment = recipe.getComment();
+  		this.created = recipe.getCreated();
+	  	this.modified = recipe.getModified();
+		}
+		
 		this.author = new WsUser(recipe.getUser());
 		
 		for ( Tag tag : recipe.getTags() ) {
-          if ( this.tagsFlat == null ) {
-            this.tagsFlat = "";
-          } else {
-            this.tagsFlat += ", ";
-          }
-          this.tagsFlat += tag.getTitle();
+      if ( this.tagsFlat == null ) {
+        this.tagsFlat = "";
+      } else {
+        this.tagsFlat += ", ";
+      }
+      this.tagsFlat += tag.getTitle();
         	  
 		  this.tags.add(new WsTag(tag));
 		}

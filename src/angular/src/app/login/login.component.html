@@ -1,0 +1,37 @@
+
+    <div align="center">
+      <table class="header" cellspacing="0" style="height: 36px; background: url('assets/gfx/topcenter.png'); border-top-left-radius: 5px;  border-top-right-radius: 5px;">
+        <tr>
+          <td style="padding-left: 10px;"><img src="assets/gfx/logo.png" /></td>
+          <td style="padding-top: 10px;"><img src="assets/gfx/jsmed.png" /></td>
+          <td style="width: 100%">&#160;</td>
+          <td style="padding-right: 10px; padding-top: 5px;">
+            <img src="assets/gfx/back.png" style="cursor: pointer;" (click)="goBack();" />
+	  </td>
+        </tr>
+      </table>
+
+      <table class="body" cellspacing="0">
+        <tr>
+          <td class="bodycell" align="center">
+
+	    <table cellspacing="1" cellpadding="4">
+	      <tr>
+		<td class="recipeTitle">Username</td>
+		<td>
+		  <input type="text" [(ngModel)]="username" required (keyup.enter)="login()">
+		</td>
+	      </tr>
+
+	      <tr>
+		<td class="recipeTitle">Password</td>
+		<td>
+		  <input type="password" [(ngModel)]="password" required (keyup.enter)="login()">
+		</td>
+	      </tr>
+	    </table>
+	    <button (click)="login()">Login</button>
+          </td>
+	</tr>
+      </table>
+    </div>

@@ -7,7 +7,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -38,7 +40,7 @@ public class RestAPIServlet {
            "SELECT r FROM Recipe r ORDER BY r.title").getResultList();
        
        for ( Recipe model : models ) {
-         WsRecipe recipe = new WsRecipe(model);
+         WsRecipe recipe = new WsRecipe(model, false);
          recipes.add(recipe);
        }
        
@@ -69,7 +71,7 @@ public class RestAPIServlet {
            "SELECT r FROM Recipe r INNER JOIN r.tags AS t WHERE t.id = :id ORDER BY r.title").setParameter("id", id).getResultList();
        
        for ( Recipe model : models ) {
-         recipes.add(new WsRecipe(model));
+         recipes.add(new WsRecipe(model, false));
        }
        
      } finally {
@@ -97,7 +99,7 @@ public class RestAPIServlet {
        Recipe model = em.find(Recipe.class, id);
       
        if ( model != null ) {
-         recipe = new WsRecipe(model);
+         recipe = new WsRecipe(model, true);
 
          
          List<Integer> imageids = em.createQuery(
@@ -120,17 +122,16 @@ public class RestAPIServlet {
    
    
    @POST
-   @Path("/login/{username}/{password}")
+   @Path("/login")
    @Produces("application/json; charset=UTF-8")
-   public Response login(@PathParam("username") String username, @PathParam("password") String password) {
+   public Response login(@FormParam("username") String username, @FormParam("password") String password) {
      EntityManager em = null;
      try {
        EntityManagerFactory emf = Persistence.createEntityManagerFactory("RecipePU");
        em = emf.createEntityManager();
       
-         
        User user = (User)em.createQuery(
-           "SELECT u FROM User AS u WHERE u.username = :usernamd AND u.password = :password")
+           "SELECT u FROM User AS u WHERE u.username = :username AND u.password = :password")
            .setParameter("username", username)
            .setParameter("password", md5(password))
            .setMaxResults(1)
@@ -141,7 +142,8 @@ public class RestAPIServlet {
          Gson gson = new GsonBuilder().create(); 
          return Response.status(200).entity(gson.toJson(wsuser)).build();
        }
-
+     } catch ( NoResultException nre ) {
+       // ignore
      } finally {
        try {
          em.close();

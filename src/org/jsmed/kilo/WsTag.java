@@ -15,7 +15,7 @@ public class WsTag implements Serializable {
 	public WsTag(Tag tag) {
 		this.id = tag.getId();
 		this.title = tag.getTitle();
-		this.description = tag.getDescription();
+		//this.description = tag.getDescription();
 	}
 	
 	public int getId() {
