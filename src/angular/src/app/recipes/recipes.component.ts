@@ -4,6 +4,9 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import { MatDialog, MatDialogConfig } from "@angular/material";
+import { LoginDialogComponent } from "./logindialog.component";
+
 
 @Component({
   selector: 'app-recipes',
@@ -17,7 +20,7 @@ export class RecipesComponent implements OnInit {
   recipes:Recipe[] = [];
   loading:boolean;
 
-  constructor(private http:Http, private _router: Router) {
+  constructor(private http:Http, private _router: Router, private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -26,6 +29,12 @@ export class RecipesComponent implements OnInit {
     this.loading = false;
   }
 
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(LoginDialogComponent, dialogConfig);
+  }
 
   listRecipes() {
     let promise = new Promise((resolve, reject) => {
