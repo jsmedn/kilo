@@ -7,20 +7,25 @@ import { FormsModule } from "@angular/forms";
 
 import { LoginComponent } from './login/login.component';
 import { RecipeComponent } from './recipe/recipe.component';
+import { EditRecipeComponent } from './editrecipe/editrecipe.component';
 import { RecipesComponent } from './recipes/recipes.component';
+
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent, 
     RecipeComponent,
+    EditRecipeComponent,
     RecipesComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    EditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -49,6 +49,10 @@ export class RecipesComponent implements OnInit {
     this._router.navigate(['recipe', id]);
   }
 
+  editRecipe(id: number) {
+    this._router.navigate(['editrecipe', id]);
+  }
+
   goToLogin() {
     this._router.navigate(['login']);
   }

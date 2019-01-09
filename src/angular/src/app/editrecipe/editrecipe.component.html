@@ -1,0 +1,104 @@
+
+    <div align="center">
+      <table class="header" cellspacing="0" style="height: 36px; background: url('assets/gfx/topcenter.png'); border-top-left-radius: 5px;  border-top-right-radius: 5px;">
+        <tr>
+          <td style="padding-left: 10px;"><img src="assets/gfx/logo.png" /></td>
+          <td style="padding-top: 10px;"><img src="assets/gfx/jsmed.png" /></td>
+          <td style="width: 100%">&#160;</td>
+          <td style="padding-right: 10px; padding-top: 5px;">
+            <img src="assets/gfx/back.png" style="cursor: pointer;" (click)="goBack();" />
+	  </td>
+        </tr>
+      </table>
+
+
+      <table class="body" cellspacing="0">
+        <tr>
+          <td class="bodycell">
+
+ <table width="100%" cellspacing="1" cellpadding="4" *ngIf="recipe">
+
+<tr>
+  <td colspan="2" class="recipeHeader" >
+
+    <input type="text" [(ngModel)]="title" (keyup.enter)="saveRecipe()" size="80">
+
+  </td>
+</tr>
+
+<tr>
+  <td class="recipeTitle">Ingredients</td>
+  <td rowspan="3" width="350">
+
+
+   <table width="100%" *ngIf="recipe.imageids">
+      <tr>
+        <td align="center">
+	  <img src="http://localhost:8080/kilo/image?id={{recipe.imageids[0]}}" id="thumbnail"/>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+	  <div *ngFor="let imageid of recipe.imageids" style="width:64px; margin: 2px; cursor:pointer; position: relative; float: left">
+	    <img src="http://localhost:8080/kilo/image?id={{imageid}}" width="64" (click)="showThumbnail(imageid)"/>
+	  </div>
+        </td>
+      
+      </tr>
+    </table>  
+  </td>
+</tr>
+
+<tr>
+  <td class="recipeCell">
+    <editor [(ngModel)]="ingredients" init="{branding: false, menubar: false}"></editor>
+  </td>
+</tr>
+
+<tr>
+  <td>&#160;</td>
+</tr>
+
+<tr>
+  <td colspan="2" class="recipeTitle">Preparation</td>
+</tr>
+
+<tr>
+  <td colspan="2" class="recipeCell">
+
+    <editor [(ngModel)]="preparation" init="{branding: false, menubar: false}"></editor>
+
+  </td>
+</tr>
+
+<tr>
+  <td colspan="2">&#160;</td>
+</tr>
+
+<tr>
+  <td colspan="2" class="recipeTitle">Comment</td>
+</tr>
+
+<tr>
+  <td colspan="2" class="recipeCell">
+
+    <editor [(ngModel)]="comment" init="{branding: false, menubar: false}"></editor>
+
+  </td>
+</tr>
+
+<tr>
+  <td colspan="2">&#160;</td>
+</tr>
+
+
+
+</table>
+
+	    <button (click)="saveRecipe()">Save</button>
+
+ 
+          </td>
+	</tr>
+      </table>
+    </div>

@@ -3,6 +3,7 @@ package org.jsmed.kilo;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -120,6 +121,49 @@ public class RestAPIServlet {
      return Response.status(200).entity(gson.toJson(recipe)).build();
    }
    
+   @POST
+   @Path("/recipe/save")
+   @Produces("application/json; charset=UTF-8")
+   public Response saveRecipe(@FormParam("id") Integer id, @FormParam("title") String title, @FormParam("ingredients") String ingredients, @FormParam("preparation") String preparation, @FormParam("comment") String comment) {
+     EntityManager em = null;
+     try {
+       EntityManagerFactory emf = Persistence.createEntityManagerFactory("RecipePU");
+       em = emf.createEntityManager();
+
+       Recipe recipe = null;
+       if ( id > 0 ) {
+         recipe = em.find(Recipe.class, id);
+       } else {
+         boolean fix_this;
+         User user = em.find(User.class, 1);
+         
+         recipe = new Recipe();
+         recipe.setCreated(new Date());
+         recipe.setUser(user);
+       }
+       
+       recipe.setModified(new Date());
+       
+       recipe.setTitle(title.trim());
+       recipe.setIngredients(ingredients.trim());
+       recipe.setPreparation(preparation.trim());
+       recipe.setComment(comment.trim());
+       
+       WsRecipe wsrecipe = new WsRecipe(recipe, true);
+       Gson gson = new GsonBuilder().create(); 
+       return Response.status(200).entity(gson.toJson(wsrecipe)).build();
+     } catch ( Exception e ) {
+       System.out.println(e);
+     } finally {
+       try {
+         em.close();
+       } catch ( Exception ignore ) {
+       }
+     }
+     
+     Gson gson = new GsonBuilder().create(); 
+     return Response.status(200).entity(gson.toJson(null)).build();
+   }
    
    @POST
    @Path("/login")

@@ -19,11 +19,11 @@
 
             <table width="100%" cellspacing="1" cellpadding="4" style="background: #cccccc;">
               <tr>
-                <td colspan="3" class="recipeHeader" style="text-align:center;">Recipes</td>
+                <td colspan="{user ? 4 : 3}" class="recipeHeader" style="text-align:center;">Recipes</td>
               </tr>
               
             
-
+<!--
               <tr>
                 <td class="recipeHeader">Title</td>
                 <td class="recipeHeader">
@@ -34,8 +34,11 @@
                 </td>
                 <td class="recipeHeader">Author</td>
               </tr>
-	    
+	      -->
+
+
 	      <tr *ngFor="let recipe of recipes">
+		<td class="recipeCell" style="cursor: pointer;" (click)="editRecipe(recipe.id)">E</td>
 		<td class="recipeCell" style="cursor: pointer;" (click)="goToRecipe(recipe.id)">{{recipe.title}}</td>
 		<td class="recipeCell">{{recipe.tagsFlat}}</td>
 		<td class="recipeCell">{{recipe.author.username}}</td>

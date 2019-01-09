@@ -9,3 +9,8 @@ How to get started (requirements, JDK 1.8, Eclipse & Jboss Tools:
 5: Right click project, Run As, Run on Server and select Tomcat.
 6: Goto src/angular and run npm install
 7: Run ng serve
+
+
+Building
+ng build --base-href /kilo/angular/
+cp -r dist/angular/ ../../WebContent/
