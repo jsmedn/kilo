@@ -48,10 +48,25 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>PhpRedirectServlet</servlet-name>
+    <servlet-class>org.jsmed.kilo.PhpRedirectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PhpRedirectServlet</servlet-name>
+    <url-pattern>/recipe.php</url-pattern>
+    <url-pattern>/index.php</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>javax.ws.rs.core.Application</servlet-name>
   </servlet>
   <servlet-mapping>
     <servlet-name>javax.ws.rs.core.Application</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
+
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+
 </web-app>

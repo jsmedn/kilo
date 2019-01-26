@@ -19,7 +19,7 @@
 
             <table width="100%" cellspacing="1" cellpadding="4" style="background: #cccccc;">
               <tr>
-                <td colspan="{user ? 4 : 3}" class="recipeHeader" style="text-align:center;">Recipes</td>
+                <td  [attr.colspan]="user ? 4 : 3" class="recipeHeader" style="text-align:center;">Recipes</td>
               </tr>
               
             
@@ -38,7 +38,9 @@
 
 
 	      <tr *ngFor="let recipe of recipes">
-		<td class="recipeCell" style="cursor: pointer;" (click)="editRecipe(recipe.id)">E</td>
+		<td class="recipeCell" style="cursor: pointer;" *ngIf="user != null">
+		  <img src="assets/gfx/edit.png" style="cursor: pointer;" (click)="editRecipe(recipe.id)" />
+		</td>
 		<td class="recipeCell" style="cursor: pointer;" (click)="goToRecipe(recipe.id)">{{recipe.title}}</td>
 		<td class="recipeCell">{{recipe.tagsFlat}}</td>
 		<td class="recipeCell">{{recipe.author.username}}</td>

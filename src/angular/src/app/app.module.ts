@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from "@angular/forms";
 
+import { AppService } from './app.service';
 import { LoginComponent } from './login/login.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { EditRecipeComponent } from './editrecipe/editrecipe.component';
@@ -27,7 +28,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     FormsModule,
     EditorModule
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 
 })

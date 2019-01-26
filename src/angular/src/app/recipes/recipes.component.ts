@@ -2,9 +2,10 @@ import { NgModule, Component, Injectable, OnInit, Inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-recipes',
+  selector: 'app-recipes', 
   templateUrl: './recipes.component.html',
   styleUrls: ['../app.component.css']
 })
@@ -16,13 +17,14 @@ export class RecipesComponent implements OnInit {
 
   user:User = null;
 
-  constructor(private http:Http, private _router: Router) {
+  constructor(private http:Http, private _router: Router, private appservice: AppService) {
   }
 
   ngOnInit() {
     if ( localStorage.getItem("user") != null ) {
       this.user = JSON.parse(localStorage.getItem("user"));
     }
+
 
     this.listRecipes();
 
