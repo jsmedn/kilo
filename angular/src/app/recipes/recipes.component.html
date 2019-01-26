@@ -1,0 +1,52 @@
+
+    <div align="center">
+      <table class="header" cellspacing="0" style="height: 36px; background: url('assets/gfx/topcenter.png'); border-top-left-radius: 5px;  border-top-right-radius: 5px;">
+        <tr>
+          <td style="padding-left: 10px;"><img src="assets/gfx/logo.png" /></td>
+          <td style="padding-top: 10px;"><img src="assets/gfx/jsmed.png" /></td>
+          <td style="width: 100%">&#160;</td>
+          <td style="padding-right: 10px; padding-top: 5px;">
+	    <img src="assets/gfx/login.png" style="cursor: pointer;" (click)="goToLogin()" *ngIf="user == null"/>
+            <img src="assets/gfx/logout.png" style="cursor: pointer;" (click)="logout()" *ngIf="user != null"/>
+	  </td>
+        </tr>
+      </table>
+
+
+      <table class="body" cellspacing="0">
+        <tr>
+          <td class="bodycell">
+
+            <table width="100%" cellspacing="1" cellpadding="4" style="background: #cccccc;">
+              <tr>
+                <td  [attr.colspan]="user ? 4 : 3" class="recipeHeader" style="text-align:center;">Recipes</td>
+              </tr>
+              
+            
+<!--
+              <tr>
+                <td class="recipeHeader">Title</td>
+                <td class="recipeHeader">
+                  <select name="tagid" onchange="location='index.php?tagid=' + this.options[this.selectedIndex].value">
+                    <option value="-1">Select tag...</option>
+<option value="6">Boller</option><option value="5">Dessert</option><option value="7">Gris</option><option value="1">Kage</option><option value="4">Oksekød</option><option value="2">Sukkerfri</option><option value="3">Tilbehør</option>                  
+                  </select>
+                </td>
+                <td class="recipeHeader">Author</td>
+              </tr>
+	      -->
+
+
+	      <tr *ngFor="let recipe of recipes">
+		<td class="recipeCell" style="cursor: pointer; width: 24px;" *ngIf="user != null">
+		  <img src="assets/gfx/edit.png" style="cursor: pointer;" (click)="editRecipe(recipe.id)" />
+		</td>
+		<td class="recipeCell" style="cursor: pointer;" (click)="goToRecipe(recipe.id)">{{recipe.title}}</td>
+		<td class="recipeCell">{{recipe.tagsFlat}}</td>
+		<td class="recipeCell">{{recipe.author.username}}</td>
+	      </tr>
+	    </table>
+          </td>
+	</tr>
+      </table>
+    </div>
