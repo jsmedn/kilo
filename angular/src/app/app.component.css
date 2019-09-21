@@ -1,6 +1,6 @@
 
 table.header, table.body {
-  width: 80%;
+  width: 90%;
   border-spacing: 0px;
 }
 
@@ -58,6 +58,7 @@ a {
 }
 
 td.recipeTitle {
+  font-weight: bold;
   font-family: Verdana, Sans Serif;
   font-size: 12pt;
   background-color: #FFFFFF;

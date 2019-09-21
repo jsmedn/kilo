@@ -1,6 +1,5 @@
-import { NgModule, Component, Injectable } from '@angular/core';
+import { NgModule, Component, Injectable, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Http, Response } from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +8,22 @@ import { Http, Response } from '@angular/http';
 })
 export class AppComponent {
 
-  authUrl:string = 'http://localhost:8080/kilo/rest/recipes/auth';
+  //authUrl:string = 'http://localhost:8080/kilo/rest/recipes/auth';
 
-  constructor(private http:Http) { 
+  constructor() { 
   }
 
+  ngOnInit() {
+  }
+
+
+
+  /*
   public getAuth(): Promise<any> {
     return this.http.get(this.authUrl)
         .toPromise();
   }
+  */
 
 
 

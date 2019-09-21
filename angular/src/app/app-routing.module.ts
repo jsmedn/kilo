@@ -9,6 +9,7 @@ import { EditRecipeComponent }   from './editrecipe/editrecipe.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'recipes', component: RecipesComponent },
+  { path: 'recipes/:local', component: RecipesComponent },
   { path: 'recipe/:id', component: RecipeComponent },
   { path: 'editrecipe/:id', component: EditRecipeComponent },
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },

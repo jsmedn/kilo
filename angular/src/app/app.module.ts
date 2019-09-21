@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 import { AppService } from './app.service';
 import { LoginComponent } from './login/login.component';
@@ -23,12 +25,19 @@ import { EditorModule } from '@tinymce/tinymce-angular';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    EditorModule
+    ReactiveFormsModule,
+    EditorModule,
+    DeviceDetectorModule.forRoot()
   ],
-  providers: [AppService],
+  providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    },
+    AppService],
   bootstrap: [AppComponent]
 
 })

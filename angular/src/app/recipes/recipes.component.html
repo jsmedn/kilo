@@ -6,9 +6,9 @@
           <td style="padding-top: 10px;"><img src="assets/gfx/jsmed.png" /></td>
           <td style="width: 100%">&#160;</td>
           <td style="padding-right: 10px; padding-top: 5px;">
-	    <img src="assets/gfx/login.png" style="cursor: pointer;" (click)="goToLogin()" *ngIf="user == null"/>
+            <img src="assets/gfx/login.png" style="cursor: pointer;" (click)="goToLogin()" *ngIf="user == null && !appservice.isMobile"/>
             <img src="assets/gfx/logout.png" style="cursor: pointer;" (click)="logout()" *ngIf="user != null"/>
-	  </td>
+          </td>
         </tr>
       </table>
 
@@ -19,7 +19,13 @@
 
             <table width="100%" cellspacing="1" cellpadding="4" style="background: #cccccc;">
               <tr>
-                <td  [attr.colspan]="user ? 4 : 3" class="recipeHeader" style="text-align:center;">Recipes</td>
+                <td  [attr.colspan]="user ? 2 : 1" >
+                    <input type="text" [(ngModel)]="query" (keyup)="searchRecipes()" style="width: 99%;" placeholder="Search">
+		</td>
+              </tr>
+
+              <tr>
+                <td  [attr.colspan]="user ? 2 : 1" class="recipeHeader" style="text-align:center;">Recipes</td>
               </tr>
               
             
@@ -34,19 +40,23 @@
                 </td>
                 <td class="recipeHeader">Author</td>
               </tr>
-	      -->
+        -->
 
 
-	      <tr *ngFor="let recipe of recipes">
-		<td class="recipeCell" style="cursor: pointer; width: 24px;" *ngIf="user != null">
-		  <img src="assets/gfx/edit.png" style="cursor: pointer;" (click)="editRecipe(recipe.id)" />
-		</td>
-		<td class="recipeCell" style="cursor: pointer;" (click)="goToRecipe(recipe.id)">{{recipe.title}}</td>
-		<td class="recipeCell">{{recipe.tagsFlat}}</td>
-		<td class="recipeCell">{{recipe.author.username}}</td>
-	      </tr>
-	    </table>
+              <tr *ngFor="let recipe of recipes">
+                <td class="recipeCell" style="cursor: pointer; width: 24px;" *ngIf="user != null">
+                  <img src="assets/gfx/edit.png" style="cursor: pointer;" (click)="editRecipe(recipe.id)" />
+                </td>
+                <td class="recipeCell" style="cursor: pointer;" (click)="goToRecipe(recipe.id)">
+                 {{recipe.title}}
+                  <div style="font-size: 12px; font-style: italic; color: #555555;">
+                    <span *ngIf="recipe.tags?.length > 0">{{recipe.tagsFlat}} - </span>
+                    <span>{{recipe.author.firstname}}  {{recipe.author.lastname}}</span>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </td>
-	</tr>
+        </tr>
       </table>
     </div>

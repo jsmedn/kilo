@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Http, Response } from '@angular/http';
-import { Recipe } from '../recipes/recipes.component';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { AppService, Recipe } from '../app.service';
 
 @Component({
   selector: 'app-recipe',
@@ -9,14 +9,21 @@ import { Recipe } from '../recipes/recipes.component';
   styleUrls: ['../app.component.css']
 })
 export class RecipeComponent implements OnInit {
-  recipeUrl:string = 'http://localhost:8080/kilo/rest/recipes/recipe/';
-
   id: number = -1;
   recipe: Recipe = null;
 
-  constructor(private http:Http, private route: ActivatedRoute, private _router: Router) { }
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private _router: Router, public appservice: AppService) {
+  }
 
   ngOnInit() {
+
+    this.route.queryParams.forEach((params: Params) => {
+      if ( params['local'] === 'true' ) {
+        this.appservice.serverUrl = 'http://192.168.1.131';
+      }
+    });
+
+
     this.route.params.forEach((params: Params) => {
       this.id = params['id'];
       this.getRecipe(this.id);
@@ -30,11 +37,11 @@ export class RecipeComponent implements OnInit {
 
   getRecipe(id: number) {
     let promise = new Promise((resolve, reject) => {
-      this.http.get(this.recipeUrl + id)
+      this.httpClient.get<Recipe>(this.appservice.getRecipeUrl() + id)
         .toPromise()
         .then(
           res => { // Success
-	    this.recipe = res.json();
+	    this.recipe = res;
             resolve();
           }
         );
@@ -44,7 +51,7 @@ export class RecipeComponent implements OnInit {
 
       showThumbnail(id: number) {
           let img = <HTMLImageElement>document.getElementById("thumbnail");
-	  img.src="http://localhost:8080/kilo/image?id=" + id;
+	  img.src= this.appservice.getServerUrl() + "/thumbnail.php?id=" + id;
       }
 
 }

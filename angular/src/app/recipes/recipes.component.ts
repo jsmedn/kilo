@@ -1,8 +1,8 @@
 import { NgModule, Component, Injectable, OnInit, Inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Http, Response } from '@angular/http';
-import { Router } from '@angular/router';
-import { AppService } from '../app.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { AppService, Recipe, User, Tag } from '../app.service';
 
 @Component({
   selector: 'app-recipes', 
@@ -10,21 +10,27 @@ import { AppService } from '../app.service';
   styleUrls: ['../app.component.css']
 })
 export class RecipesComponent implements OnInit {
-  recipesUrl:string = 'http://localhost:8080/kilo/rest/recipes/list';
-
   recipes:Recipe[] = [];
+  allRecipes:Recipe[] = [];
   loading:boolean;
-
   user:User = null;
+  query:string = "";
 
-  constructor(private http:Http, private _router: Router, private appservice: AppService) {
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private _router: Router, public appservice: AppService) {
   }
 
   ngOnInit() {
+    console.log("we be here");
+    this.route.params.forEach((params: Params) => {
+      if ( params['local'] === 'local' ) {
+        this.appservice.serverUrl = 'http://192.168.1.131';
+      }
+    });
+
+
     if ( localStorage.getItem("user") != null ) {
       this.user = JSON.parse(localStorage.getItem("user"));
     }
-
 
     this.listRecipes();
 
@@ -33,19 +39,21 @@ export class RecipesComponent implements OnInit {
 
   listRecipes() {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${this.recipesUrl}`;
-      this.http.get(apiURL)
+      this.httpClient.get<Recipe[]>(this.appservice.getRecipesUrl())
         .toPromise()
-        .then(
-          res => { // Success
-	    this.recipes = res.json();
-            resolve();
-          }
-        );
+        .then(res => {
+          this.recipes = res;
+          this.allRecipes = res;
+	  resolve();
+        });
+
     });
     return promise;
   }
 
+  searchRecipes() {
+    this.recipes = this.allRecipes.filter(recipe => this.query == null || this.query == "" || recipe.title.toLowerCase().indexOf(this.query.toLowerCase()) !== -1)
+  }
 
   goToRecipe(id: number) {
     this._router.navigate(['recipe', id]);
@@ -64,31 +72,12 @@ export class RecipesComponent implements OnInit {
     document.location.reload();
   }
 
+  switchServer() {
+    this.appservice.switchServer();
+    this.listRecipes();
+  }
+
 }
 
-export class Recipe {
-  id:number=null;
-  title:string='';
-  ingredients:string='';
-  preparation:string='';
-  comment:string='';
-  author:User=null;
-  tags:Tag=null;
-  tagsFlat:string=null;
-  imageids:number[] = [];
-}
-
-export class User {
-  id:number=null;
-  username:string='';
-  firstname:string='';
-  lastname:string='';
-  email:string='';
-}
-
-export class Tag {
-  id:number=null;
-  title:string='';
-}
 
 

@@ -23,20 +23,20 @@
 </tr>
 
 <tr>
-  <td class="recipeTitle">Ingredients</td>
-  <td rowspan="3" width="350">
+  <td class="recipeTitle" [attr.colspan]="appservice.isMobile ? 2 : 1">Ingredients</td>
+  <td rowspan="3" width="350" *ngIf="!appservice.isMobile">
 
 
-   <table width="100%" *ngIf="recipe.imageids">
+   <table width="100%" *ngIf="recipe.imageids?.length > 0">
       <tr>
         <td align="center">
-	  <img src="http://localhost:8080/kilo/image?id={{recipe.imageids[0]}}" id="thumbnail"/>
+	  <img src="{{appservice.getServerUrl()}}/thumbnail.php?id={{recipe.imageids[0]}}" id="thumbnail"/>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="recipe.imageids?.length > 1">
         <td align="center">
 	  <div *ngFor="let imageid of recipe.imageids" style="width:64px; margin: 2px; cursor:pointer; position: relative; float: left">
-	    <img src="http://localhost:8080/kilo/image?id={{imageid}}" width="64" (click)="showThumbnail(imageid)"/>
+	    <img src="{{appservice.getServerUrl()}}/thumbnail.php?id={{imageid}}" width="64" (click)="showThumbnail(imageid)"/>
 	  </div>
         </td>
       

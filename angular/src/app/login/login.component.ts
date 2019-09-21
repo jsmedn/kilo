@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../recipes/recipes.component';
+import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
+import { AppService, User } from '../app.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -11,12 +10,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['../app.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginUrl:string = 'http://localhost:8080/kilo/rest/recipes/login';
+  //loginUrl:string = 'http://localhost:8080/kilo/rest/recipes/login';
 
   username: string;
   password: string;
 
-  constructor(private http:Http, private route: ActivatedRoute, private _router: Router) { }
+  constructor(private httpClient:HttpClient, private route: ActivatedRoute, private _router: Router, private appservice: AppService) { }
 
   ngOnInit() {
   }
@@ -27,18 +26,21 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+    let headers: HttpHeaders = new HttpHeaders()
+        .append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8')
 
-    let options = new RequestOptions({ headers: headers });
+    let params: HttpParams = new HttpParams()
+       .append('username', this.username)
+       .append('password', this.password);
 
-    return this.http
-      .post(this.loginUrl,
-            "username=" + this.username + "&password=" + this.password
-            , options) 
+    return this.httpClient
+      .post(this.appservice.getLoginUrl(),
+            params.toString(),
+	    { observe: 'body', headers: headers }) 
       .toPromise()
-      .then((response: Response) => {
-        const userdata = response.json();
+      .then((response: HttpResponse<User>) => {
+        const userdata = response;
+
         if (userdata) {
 	  localStorage.setItem('user', JSON.stringify(userdata));
         } else {
